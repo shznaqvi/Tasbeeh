@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Tasbeeh - The Counter</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="intro">Score</string>
+    <string name="addone">+</string>
+    <string name="txtCount">00000</string>
+    <string name="reset">RESET</string>
+    <string name="subtractone">-1</string>
+    <string name="counterName">00000</string>
+    <string name="txtCountLimit">Set counter limit ( 0 = No limit)</string>
+</resources>
+
+
+
+
+
