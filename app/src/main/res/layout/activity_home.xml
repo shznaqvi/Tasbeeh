@@ -34,6 +34,18 @@
         android:paddingBottom="72dp" />
 
     <Button
+        android:id="@+id/setMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/resetButton"
+        android:layout_alignParentStart="true"
+        android:padding="16dp"
+        android:text="Silent"
+
+        android:textColor="#d6d6d6d6"
+        android:textSize="24sp" />
+
+    <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
