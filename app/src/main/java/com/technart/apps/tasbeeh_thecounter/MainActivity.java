@@ -1,6 +1,5 @@
 package com.technart.apps.tasbeeh_thecounter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -10,21 +9,20 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends Activity implements OnClickListener {
+
+public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     Button btn1;
     Button btn2;
     Button btn3;
-    TextView scoreText;
     int counter = 0;
     Vibrator vibe;
     ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
@@ -44,7 +42,6 @@ public class MainActivity extends Activity implements OnClickListener {
 
         btn2 = findViewById(R.id.resetButton);
         btn3 = findViewById(R.id.setMode);
-        scoreText = findViewById(R.id.txtCount);
         limitText = findViewById(R.id.countLimit);
 
 
@@ -53,10 +50,9 @@ public class MainActivity extends Activity implements OnClickListener {
         btn3.setOnClickListener(this);
 
 
-        scoreText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 110);
         ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 50);
         Typeface digitTypeface = Typeface.createFromAsset(this.getAssets(), "fonts/Digital.ttf");
-        scoreText.setTypeface(digitTypeface);
+        btn1.setTypeface(digitTypeface);
         vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
     }
@@ -68,12 +64,17 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     public void onClick(View v) {
         String cLimit = limitText.getText().toString();
+        btn1.setTextSize(96);
+
+        if (cLimit.equals("110") && (counter == 4 || counter == 11 || counter == 13)) {
+            Toast.makeText(this, "This Digital Tasbeeh is developed by Hassan Naqvi. (shznaqvi@gmail.com) \r\n 2019", Toast.LENGTH_LONG).show();
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            vibe.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+            vibe.vibrate(VibrationEffect.createOneShot(55, 2));
         } else {
 
-            vibe.vibrate(500);
+            // vibe.vibrate(55);
 
         }
 
@@ -81,20 +82,20 @@ public class MainActivity extends Activity implements OnClickListener {
 
 
                 counter++;
-                scoreText.setText(Integer.toString(counter));
+            btn1.setText(Integer.toString(counter));
 
-            vibe.vibrate(1000);
+            vibe.vibrate(110);
             if (!mMode) {
                 toneG.startTone(ToneGenerator.TONE_PROP_BEEP, 200);
             }
 
                 if ((counter >= 0) && (counter == Integer.parseInt(cLimit))) {
-                    scoreText.setTextColor(Color.RED);
+                    btn1.setTextColor(Color.RED);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        vibe.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+                        vibe.vibrate(VibrationEffect.createOneShot(55, 2));
                     } else {
 
-                        vibe.vibrate(500);
+                        // vibe.vibrate(55);
 
                     }
                     if (!mMode) {
@@ -103,10 +104,10 @@ public class MainActivity extends Activity implements OnClickListener {
                     }
                     btn1.setClickable(false);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        vibe.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+                        vibe.vibrate(VibrationEffect.createOneShot(55, 2));
                     } else {
 
-                        vibe.vibrate(500);
+                        // vibe.vibrate(55);
 
                     }
                 }
@@ -116,21 +117,28 @@ public class MainActivity extends Activity implements OnClickListener {
 
             counter=0;
             btn1.setClickable(true);
-            scoreText.setText(Integer.toString(counter));
-            scoreText.setTextColor(Color.GREEN);
+            btn1.setText(Integer.toString(counter));
+            btn1.setTextColor(Color.GREEN);
         }
 
         if (v == btn3) {
 
             if (mMode) {
-                scoreText.setText("Sound OFF");
-                scoreText.setTextColor(Color.GRAY);
+                btn1.setTextSize(48);
+                btn1.setText("Sound ON");
+                btn1.setTextColor(Color.GREEN);
+                v.setBackgroundResource(R.drawable.ic_volume_up_black_24dp);
+
+                v.setBackgroundResource(R.drawable.ic_volume_mute_black_24dp);
+
                 mMode = false;
                 Toast.makeText(this, "Silent OFF", Toast.LENGTH_SHORT).show();
             } else if (!mMode) {
+                v.setBackgroundResource(R.drawable.ic_volume_mute_black_24dp);
 
-                scoreText.setText("Sound ON");
-                scoreText.setTextColor(Color.GREEN);
+                btn1.setText("Sound OFF");
+                btn1.setTextSize(48);
+                btn1.setTextColor(Color.GRAY);
                 mMode = true;
                 Toast.makeText(this, "Silent ON", Toast.LENGTH_SHORT).show();
 
@@ -155,9 +163,8 @@ public class MainActivity extends Activity implements OnClickListener {
         String cLimit = limitText.getText().toString();
 
         if ((counter >= 0) && (counter == Integer.parseInt(cLimit))) {
-            scoreText.setTextColor(Color.RED);
+            btn1.setTextColor(Color.RED);
             btn1.setClickable(false);
         }
-
     }
 }
