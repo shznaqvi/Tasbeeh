@@ -21,9 +21,9 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener {
 
-    Button btn1;
-    Button btn2;
-    Button btn3;
+    Button addButton;
+    Button resetButton;
+    Button muteButton;
     TextView scoreText;
     int counter = 0;
     Vibrator vibe;
@@ -40,17 +40,17 @@ public class MainActivity extends Activity implements OnClickListener {
 
         setContentView(R.layout.activity_home);
 
-        btn1 = findViewById(R.id.addButton);
+        addButton = findViewById(R.id.addButton);
 
-        btn2 = findViewById(R.id.resetButton);
-        btn3 = findViewById(R.id.setMode);
+        resetButton = findViewById(R.id.resetButton);
+        muteButton = findViewById(R.id.setMode);
         scoreText = findViewById(R.id.txtCount);
         limitText = findViewById(R.id.countLimit);
 
 
-        btn1.setOnClickListener(this);
-        btn2.setOnClickListener(this);
-        btn3.setOnClickListener(this);
+        addButton.setOnClickListener(this);
+        resetButton.setOnClickListener(this);
+        muteButton.setOnClickListener(this);
 
 
         scoreText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 110);
@@ -70,22 +70,22 @@ public class MainActivity extends Activity implements OnClickListener {
         String cLimit = limitText.getText().toString();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            vibe.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+            vibe.vibrate(VibrationEffect.createOneShot(110, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
 
-            vibe.vibrate(500);
+            vibe.vibrate(20);
 
         }
 
-        if (v == btn1) {
+        if (v == addButton) {
 
 
                 counter++;
                 scoreText.setText(Integer.toString(counter));
 
-            vibe.vibrate(1000);
+            //vibe.vibrate(1000);
             if (!mMode) {
-                toneG.startTone(ToneGenerator.TONE_PROP_BEEP, 200);
+                toneG.startTone(ToneGenerator.TONE_CDMA_PRESSHOLDKEY_LITE, 20);
             }
 
                 if ((counter >= 0) && (counter == Integer.parseInt(cLimit))) {
@@ -101,7 +101,7 @@ public class MainActivity extends Activity implements OnClickListener {
                         toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 2000);
                         toneG.startTone(ToneGenerator.TONE_SUP_ERROR, 2000);
                     }
-                    btn1.setClickable(false);
+                    addButton.setClickable(false);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         vibe.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
                     } else {
@@ -112,25 +112,29 @@ public class MainActivity extends Activity implements OnClickListener {
                 }
 
         }
-        if (v == btn2) {
+        if (v == resetButton) {
 
             counter=0;
-            btn1.setClickable(true);
+            addButton.setClickable(true);
             scoreText.setText(Integer.toString(counter));
             scoreText.setTextColor(Color.GREEN);
         }
 
-        if (v == btn3) {
+        if (v == muteButton) {
 
             if (mMode) {
                 scoreText.setText("Sound OFF");
+                muteButton.setText("Sound OFF");
                 scoreText.setTextColor(Color.GRAY);
+                muteButton.setTextColor(Color.GRAY);
                 mMode = false;
                 Toast.makeText(this, "Silent OFF", Toast.LENGTH_SHORT).show();
             } else if (!mMode) {
 
                 scoreText.setText("Sound ON");
+                muteButton.setText("Sound ON");
                 scoreText.setTextColor(Color.GREEN);
+                muteButton.setTextColor(Color.GREEN);
                 mMode = true;
                 Toast.makeText(this, "Silent ON", Toast.LENGTH_SHORT).show();
 
@@ -156,7 +160,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
         if ((counter >= 0) && (counter == Integer.parseInt(cLimit))) {
             scoreText.setTextColor(Color.RED);
-            btn1.setClickable(false);
+            addButton.setClickable(false);
         }
 
     }

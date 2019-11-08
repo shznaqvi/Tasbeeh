@@ -2,23 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#ff000000"
+    android:background="#efefef"
     android:screenOrientation="portrait"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/txtCount"
-        android:id="@+id/txtCount"
-        android:background="#ff1e1e1e"
-        android:textColor="#ff00ff00"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:clickable="false"
-        android:textSize="110sp"
-        android:freezesText="true"
-        android:inputType="number" />
+
 
     <Button
         android:layout_width="wrap_content"
@@ -31,8 +19,24 @@
         android:textColor="#ff1e1e1e"
         android:textSize="110sp"
         android:paddingTop="72dp"
-        android:paddingBottom="72dp" />
-
+        android:paddingBottom="72dp"
+        android:layout_margin="8dp"
+        android:elevation="1dp"
+        android:radius="2dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txtCount"
+        android:id="@+id/txtCount"
+        android:background="#fffefefe"
+        android:textColor="#ff00ff00"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:clickable="false"
+        android:textSize="110sp"
+        android:freezesText="true"
+        android:inputType="number" />
     <Button
         android:id="@+id/setMode"
         android:layout_width="wrap_content"
@@ -40,9 +44,9 @@
         android:layout_above="@+id/resetButton"
         android:layout_alignParentStart="true"
         android:padding="16dp"
-        android:text="Silent"
+        android:text="Sound ON"
 
-        android:textColor="#d6d6d6d6"
+        android:textColor="#d6d6efd6"
         android:textSize="24sp" />
 
     <Button
