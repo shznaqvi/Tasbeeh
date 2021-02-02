@@ -84,7 +84,7 @@ public class MainActivity extends Activity implements OnClickListener {
                 scoreText.setText(Integer.toString(counter));
 
             //vibe.vibrate(1000);
-            if (!mMode) {
+            if (mMode) {
                 toneG.startTone(ToneGenerator.TONE_CDMA_PRESSHOLDKEY_LITE, 20);
             }
 
@@ -97,7 +97,7 @@ public class MainActivity extends Activity implements OnClickListener {
                         vibe.vibrate(500);
 
                     }
-                    if (!mMode) {
+                    if (mMode) {
                         toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 2000);
                         toneG.startTone(ToneGenerator.TONE_SUP_ERROR, 2000);
                     }

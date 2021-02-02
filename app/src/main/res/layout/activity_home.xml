@@ -90,7 +90,7 @@
         android:id="@+id/lblLimit"
         android:labelFor="@+id/countLimit"
         android:padding="5dp"
-        android:textColor="#ffffffff"
+        android:textColor="#33333333"
         android:layout_alignParentBottom="true"
         android:layout_alignEnd="@+id/countLimit" />
 
