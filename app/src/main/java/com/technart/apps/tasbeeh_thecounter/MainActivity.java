@@ -253,7 +253,7 @@ lockClock = false;
         sound = sharedPreferences.getBoolean("sound", true);
         vibrate = sharedPreferences.getBoolean("vibrate", true);
 
-        Log.d("TAG", "onResume counterLimit: " + sharedPreferences.getString("counterlimit", ""));
+        Log.d("TAG", "onResume counterLimit: " + sharedPreferences.getString("counterlimit", "0"));
         Log.d("TAG", "onResume sounds: " + sharedPreferences.getBoolean("sounds", false));
         Log.d("TAG", "onResume vibrate: " + sharedPreferences.getBoolean("vibrate", false));
 
