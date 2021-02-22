@@ -5,7 +5,41 @@
       <map>
         <entry key="vectorWizard">
           <value>
-            <PersistentState />
+            <PersistentState>
+              <option name="children">
+                <map>
+                  <entry key="vectorAssetStep">
+                    <value>
+                      <PersistentState>
+                        <option name="children">
+                          <map>
+                            <entry key="clipartAsset">
+                              <value>
+                                <PersistentState>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../../users/hassan.naqvi/AppData/Local/Android/Sdk/icons/material/materialicons/lock_clock/baseline_lock_clock_24.xml" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                        <option name="values">
+                          <map>
+                            <entry key="autoMirrored" value="true" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="ic_lock_clock" />
+                            <entry key="sourceFile" value="f:\android\Tasbeeh2" />
+                          </map>
+                        </option>
+                      </PersistentState>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </PersistentState>
           </value>
         </entry>
       </map>

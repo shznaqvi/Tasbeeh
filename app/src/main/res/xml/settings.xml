@@ -8,7 +8,7 @@
         android:key="sounds"
         android:title="Disable count sound"/>
     <SwitchPreference
-        android:key="sounds"
+        android:key="vibrate"
         android:title="Disable vibrate"/>
     <EditTextPreference
         android:key="counterlimit"

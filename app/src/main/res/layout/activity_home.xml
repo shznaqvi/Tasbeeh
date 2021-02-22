@@ -1,97 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#efefef"
+    android:background="@drawable/background"
     android:screenOrientation="portrait"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:gravity="center"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"/>
 
-
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/addone"
-        android:id="@+id/addButton"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:textColor="#ff1e1e1e"
-        android:textSize="110sp"
-        android:paddingTop="72dp"
-        android:paddingBottom="72dp"
-        android:layout_margin="8dp"
-        android:elevation="1dp"
-        android:radius="2dp"
-        />
     <TextView
+        android:id="@+id/addButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/txtCount"
-        android:id="@+id/txtCount"
-        android:background="#fffefefe"
-        android:textColor="#ff00ff00"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:clickable="false"
-        android:textSize="110sp"
-        android:freezesText="true"
-        android:inputType="number" />
-    <Button
-        android:id="@+id/setMode"
+        android:elevation="1dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:background="@drawable/circle"
+android:layout_margin="24dp"
+        android:shadowColor="#d6000000"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:radius="2dp"
+        android:text="@string/addone"
+        android:textColor="#d600ff00"
+        android:textSize="110sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+        android:id="@+id/options"
+        android:visibility="invisible"
+        android:orientation="horizontal">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_margin="24dp"
+            android:padding="24dp"
+            android:id="@+id/refresh"
+            android:onClick="onClick"
+            android:background="@drawable/ic_refresh"
+            android:layout_height="wrap_content"/>
+        <ImageButton
+            android:onClick="onClick"
+android:id="@+id/reset"
+            android:layout_width="wrap_content"
+            android:layout_margin="24dp"
+            android:padding="24dp"
+            android:background="@drawable/ic_reset"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:padding="24dp"
+
+        android:orientation="vertical">
+    <ImageButton
+        android:id="@+id/lockClock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/resetButton"
-        android:layout_alignParentStart="true"
-        android:padding="16dp"
-        android:text="Sound ON"
-
-        android:textColor="#d6d6efd6"
-        android:textSize="24sp" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/reset"
-        android:id="@+id/resetButton"
-        android:background="#d6ff0000"
-        android:gravity="center"
-        android:nestedScrollingEnabled="true"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:textColor="#ffffffff"
-        android:textSize="24sp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/countLimit" />
-
-    <EditText
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/countLimit"
-        android:background="#ffffffff"
-        android:editable="true"
-        android:padding="5dp"
-        android:textSize="24sp"
-        android:layout_above="@+id/lblLimit"
-        android:layout_alignParentEnd="true"
-        android:text="0"
-        android:inputType="number"
-        android:numeric="integer"
-        android:maxLines="1"
-        android:digits="0123456789"
-        android:clickable="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txtCountLimit"
-        android:id="@+id/lblLimit"
-        android:labelFor="@+id/countLimit"
-        android:padding="5dp"
-        android:textColor="#33333333"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/countLimit" />
-
-</RelativeLayout>
+        android:onClick="onClick"
+        android:background="@drawable/ic_lock"
+        />
+    </LinearLayout>
+</LinearLayout>
