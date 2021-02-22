@@ -1,0 +1,21 @@
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:key="notifications"
+        android:title="Enable message notifications"/>
+    <SwitchPreference
+        android:key="sounds"
+        android:title="Disable count sound"/>
+    <SwitchPreference
+        android:key="sounds"
+        android:title="Disable vibrate"/>
+    <EditTextPreference
+        android:key="counterlimit"
+        android:title="@string/txtCountLimit"/>
+    <Preference
+        android:key="feedback"
+        android:title="Send feedback"
+        android:summary="Report technical issues or suggest new features"/>
+
+</androidx.preference.PreferenceScreen>
