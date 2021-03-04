@@ -11,12 +11,27 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical"/>
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/textToCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="48sp"
+            android:text="9999"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1"
+            android:textColor="#7fd6d6ff"
+            android:gravity="end"
+            android:padding="24dp"
+            android:fontFamily="monospace"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/addButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:maxHeight="250dp"
+        android:maxWidth="250dp"
         android:elevation="1dp"
         android:gravity="center_horizontal|center_vertical"
         android:background="@drawable/circle"
@@ -29,44 +44,58 @@ android:layout_margin="24dp"
         android:textColor="#d600ff00"
         android:textSize="110sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical|center_horizontal"
-        android:id="@+id/options"
-        android:visibility="invisible"
-        android:orientation="horizontal">
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_margin="24dp"
-            android:padding="24dp"
-            android:id="@+id/refresh"
-            android:onClick="onClick"
-            android:background="@drawable/ic_refresh"
-            android:layout_height="wrap_content"/>
-        <ImageButton
-            android:onClick="onClick"
-android:id="@+id/reset"
-            android:layout_width="wrap_content"
-            android:layout_margin="24dp"
-            android:padding="24dp"
-            android:background="@drawable/ic_reset"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="bottom"
-        android:padding="24dp"
 
-        android:orientation="vertical">
-    <ImageButton
-        android:id="@+id/lockClock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:background="@drawable/ic_lock"
-        />
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/lockClock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_lock"
+            android:layout_margin="24dp"
+            android:onClick="onClick" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="top|center_horizontal"
+            android:id="@+id/options"
+            android:visibility="invisible"
+            android:orientation="horizontal">
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:padding="24dp"
+                android:id="@+id/refresh"
+                android:onClick="onClick"
+                android:background="@drawable/ic_refresh"
+                android:layout_height="wrap_content"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:padding="24dp"
+                android:visibility="invisible"
+                android:background="@drawable/ic_refresh"
+                android:layout_height="wrap_content"/>
+            <ImageButton
+                android:onClick="onClick"
+                android:id="@+id/reset"
+                android:layout_width="wrap_content"
+                android:padding="24dp"
+                android:background="@drawable/ic_reset"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:layout_margin="24dp"
+            android:visibility="invisible"
+            android:background="@drawable/ic_lock"
+            />
     </LinearLayout>
 </LinearLayout>

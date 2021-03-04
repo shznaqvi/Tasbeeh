@@ -10,6 +10,16 @@
     <string name="subtractone">-1</string>
     <string name="counterName">00000</string>
     <string name="txtCountLimit">Set counter limit ( 0 = No limit)</string>
+    <string name="ps01">Enable message notifications</string>
+    <string name="ps02">Disable count sound</string>
+    <string name="ps03">Sound volume</string>
+    <string name="ps04">Disable vibrate</string>
+    <string name="ps05">Vibration amplitude</string>
+    <string name="ps06">Send feedback</string>
+    <string name="ps07">Report technical issues or suggest new features</string>
+    <string name="ps08">Counter limit</string>
+    <string name="msgUnlock">Please unlock to use menu.</string>
+    <string name="updated">Updated</string>
 </resources>
 
 

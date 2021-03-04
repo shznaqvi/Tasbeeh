@@ -3,19 +3,32 @@
 
     <SwitchPreference
         android:key="notifications"
-        android:title="Enable message notifications"/>
+        android:title="@string/ps01"/>
     <SwitchPreference
-        android:key="sounds"
-        android:title="Disable count sound"/>
+        android:key="sound"
+        android:title="@string/ps02"/>
+  <SeekBarPreference
+        android:key="soundamp"
+        android:title="@string/ps03"
+        android:defaultValue="50"
+        android:max="100"/>
     <SwitchPreference
         android:key="vibrate"
-        android:title="Disable vibrate"/>
+        android:title="@string/ps04"/>
+    <SeekBarPreference
+        android:key="vibrateamp"
+        android:title="@string/ps05"
+        android:defaultValue="5"
+        android:max="10"/>
     <EditTextPreference
         android:key="counterlimit"
-        android:title="@string/txtCountLimit"/>
+        android:title="@string/ps08"
+        android:defaultValue="0"
+        android:widgetLayout="@anim/fragment_fast_out_extra_slow_in"
+        android:summary="@string/txtCountLimit"/>
     <Preference
         android:key="feedback"
-        android:title="Send feedback"
-        android:summary="Report technical issues or suggest new features"/>
+        android:title="@string/ps06"
+        android:summary="@string/ps07"/>
 
 </androidx.preference.PreferenceScreen>

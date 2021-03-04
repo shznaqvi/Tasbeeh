@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name = "app_name"> تسبیح - شمارنده </string>
+
+    <string name = "hello_world"> سلام به جهان! </string>
+    <string name = "action_settings"> تنظیمات </string>
+    <string name = "intro"> امتیاز </string>
+    <string name = "addone"> + </string>
+    <string name = "txtCount"> 00000 </string>
+    <string name = "reset"> بازنشانی </string>
+    <string name = "subtractone"> - 1 </string>
+    <string name = "counterName"> 00000 </string>
+    <string name = "txtCountLimit"> تنظیم حد شمارنده (0 = بدون محدودیت) </string>
+    <string name = "ps01"> اعلان های پیام را فعال کنید </string>
+    <string name = "ps02"> صدای شمارش را غیرفعال کنید </string>
+    <string name = "ps03"> میزان صدا </string>
+    <string name = "ps04"> لرزش را غیرفعال کنید </string>
+    <string name = "ps05"> دامنه ارتعاش </string>
+    <string name = "ps06"> ارسال بازخورد </string>
+    <string name = "ps07"> موارد فنی را گزارش دهید یا ویژگی های جدیدی را پیشنهاد دهید </string>
+    <string name = "ps08"> حد شمارنده </string>
+    <string name = "msgUnlock"> لطفا برای استفاده از منو قفل را باز کنید. </string>
+    <string name = "updated"> به روز شده </string>
+
+</resources>

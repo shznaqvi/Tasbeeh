@@ -33,6 +33,7 @@ import androidx.preference.PreferenceManager;
 public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     TextView addButton;
+    TextView textToCount;
     /* Button resetButton;
      Button muteButton;
      TextView scoreText;*/
@@ -52,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     private Runnable runnable;
     ImageButton btnlockClock;
     private Animation blinkanimation;
+    private int vibrateAmp = 50;
+    private int soundAmp = 50;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,7 @@ lockClock = false;
         int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
         addButton = findViewById(R.id.addButton);
+        textToCount = findViewById(R.id.textToCount);
         options = findViewById(R.id.options);
         btnlockClock = findViewById(R.id.lockClock);
         addButton.setHeight(width - 48);
@@ -88,6 +92,7 @@ lockClock = false;
         ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 50);
         Typeface digitTypeface = Typeface.createFromAsset(this.getAssets(), "fonts/Digital.ttf");
         addButton.setTypeface(digitTypeface);
+        textToCount.setTypeface(digitTypeface);
         vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         runnable = new Runnable(){
@@ -98,11 +103,14 @@ lockClock = false;
             }
         };
 
-        blinkanimation= new AlphaAnimation(1, 0.5f); // Change alpha from fully visible to invisible
+        blinkanimation= new AlphaAnimation(1, 0.2f); // Change alpha from fully visible to invisible
         blinkanimation.setDuration(110); // duration - half a second
         blinkanimation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
         blinkanimation.setRepeatCount(1); // Repeat animation infinitely
         blinkanimation.setRepeatMode(Animation.REVERSE);
+
+
+
     }
 
 
@@ -113,15 +121,15 @@ lockClock = false;
     @Override
     public void onClick(View v) {
         //   cLimit = limitText.getText().toString();
+        if (!vibrate) {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            vibe.vibrate(VibrationEffect.createOneShot(110, VibrationEffect.DEFAULT_AMPLITUDE));
-        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibe.vibrate(VibrationEffect.createOneShot(110, vibrateAmp*(255/10)));
+            } else {
 
-            vibe.vibrate(20);
-
+                vibe.vibrate(20);
+            }
         }
-
         if(v.getId() == R.id.lockClock){
 
             btnlockClock.setBackground(getResources().getDrawable(R.drawable.ic_lock_clock));
@@ -132,10 +140,11 @@ lockClock = false;
 
         if (v.getId() == R.id.reset) {
             prefEditor.putString("counterlimit", "0");
+            textToCount.setText("--");
             counter = 0;
             options.setVisibility(View.INVISIBLE);
             addButton.setTextColor(Color.GREEN);
-            addButton.setText("0");
+            addButton.setText("+");
             addButton.setClickable(true);
             prefEditor.apply();
         }
@@ -144,7 +153,7 @@ lockClock = false;
             counter = 0;
             options.setVisibility(View.INVISIBLE);
             addButton.setTextColor(Color.GREEN);
-            addButton.setText("0");
+            addButton.setText("+");
             addButton.setClickable(true);
 
 
@@ -157,36 +166,32 @@ lockClock = false;
             addButton.setText(Integer.toString(counter));
 
             //vibe.vibrate(1000);
-            if (sound) {
+            if (!sound) {
+                toneG = new ToneGenerator(AudioManager.STREAM_ALARM, soundAmp);
                 toneG.startTone(ToneGenerator.TONE_CDMA_PRESSHOLDKEY_LITE, 20);
             }
             Log.d("TAG", "onClick: counter " + counter);
             Log.d("TAG", "onClick: cLimit " + cLimit);
+            Log.d("TAG", "onClick: sound " + sound);
+            Log.d("TAG", "onClick: vibrate " + vibrate);
             if ((counter >= 0) && (counter == Integer.parseInt(cLimit))) {
                 options.setVisibility(View.VISIBLE);
                 addButton.setTextColor(Color.RED);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     vibe.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
                 } else {
-
                     vibe.vibrate(500);
-
                 }
-                if (sound) {
                     toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 2000);
                     toneG.startTone(ToneGenerator.TONE_SUP_ERROR, 2000);
-                }
-                addButton.setClickable(false);
 
-                if (vibrate) {
+                addButton.setClickable(false);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         vibe.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
                     } else {
-
                         vibe.vibrate(500);
-
                     }
-                }
+
             }
 
         }
@@ -221,19 +226,24 @@ lockClock = false;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent = null;
-        if(lockClock) {
+        if(addButton.getText().toString().equals("+") || (!addButton.getText().toString().equals("+") && lockClock)) {
             switch (item.getItemId()) {
                 case R.id.action_settings:
                     intent = new Intent(MainActivity.this, SettingsActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.action_reset:
+                    addButton.setText("+");
+                    textToCount.setText("--");
                     counter = 0;
+                    options.setVisibility(View.INVISIBLE);
+                    addButton.setTextColor(Color.GREEN);
+                    addButton.setClickable(true);
                     break;
 
             }
         } else {
-            Toast.makeText(this, "Please unlock to use menu.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.msgUnlock), Toast.LENGTH_SHORT).show();
         }
             return super.onOptionsItemSelected(item);
 
@@ -248,13 +258,18 @@ lockClock = false;
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(this, "Updated", Toast.LENGTH_SHORT).show();
-        cLimit = sharedPreferences.getString("counterlimit", "0");
-        sound = sharedPreferences.getBoolean("sound", true);
-        vibrate = sharedPreferences.getBoolean("vibrate", true);
+        Toast.makeText(this, getResources().getString(R.string.updated), Toast.LENGTH_SHORT).show();
+        cLimit = String.valueOf(Integer.valueOf(sharedPreferences.getString("counterlimit", "0")));
+        vibrateAmp = sharedPreferences.getInt("vibrateamp", 50);
+        soundAmp = sharedPreferences.getInt("soundamp", 50);
+        sound = sharedPreferences.getBoolean("sound", false);
+        vibrate = sharedPreferences.getBoolean("vibrate", false);
+        textToCount.setText(cLimit);
 
         Log.d("TAG", "onResume counterLimit: " + sharedPreferences.getString("counterlimit", "0"));
-        Log.d("TAG", "onResume sounds: " + sharedPreferences.getBoolean("sounds", false));
+        Log.d("TAG", "onResume vibrateAmp: " + sharedPreferences.getInt("vibrateamp", 50));
+        Log.d("TAG", "onResume soundamp: " + sharedPreferences.getInt("soundamp", 50));
+        Log.d("TAG", "onResume sounds: " + sharedPreferences.getBoolean("sound", false));
         Log.d("TAG", "onResume vibrate: " + sharedPreferences.getBoolean("vibrate", false));
 
  /*
@@ -296,4 +311,5 @@ lockClock = false;
 
         String myString = savedInstanceState.getString("MyString");
     }
+
 }

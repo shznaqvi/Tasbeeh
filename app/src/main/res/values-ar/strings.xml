@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name = "app_name"> التسبيح - العداد </string>
+
+    <string name = "hello_world"> أهلاً بالعالم! </string>
+    <string name = "action_settings"> الإعدادات </string>
+    <string name = "intro"> النتيجة </string>
+    <string name = "addone"> + </string>
+    <string name = "txtCount"> 00000 </string>
+    <string name = "reset"> إعادة تعيين </string>
+    <string name = "subtractone"> - 1 </string>
+    <string name = "counterName"> 00000 </string>
+    <string name = "txtCountLimit"> تعيين حد العداد (0 = بلا حدود) </string>
+    <string name = "ps01"> تمكين إشعارات الرسائل </string>
+    <string name = "ps02"> تعطيل حساب العد </string>
+    <string name = "ps03"> مستوى الصوت </string>
+    <string name = "ps04"> تعطيل الاهتزاز </string>
+    <string name = "ps05"> سعة الاهتزاز </string>
+    <string name = "ps06"> إرسال ملاحظات </string>
+    <string name = "ps07"> الإبلاغ عن مشكلات فنية أو اقتراح ميزات جديدة </string>
+    <string name = "ps08"> حد العداد </string>
+    <string name = "msgUnlock"> الرجاء إلغاء القفل لاستخدام القائمة. </string>
+    <string name = "updated"> محدث </string>
+
+</resources>
