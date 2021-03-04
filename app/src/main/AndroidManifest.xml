@@ -5,7 +5,8 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/tasbeehlogo"
+        android:roundIcon="@drawable/tasbeehlogo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
 
