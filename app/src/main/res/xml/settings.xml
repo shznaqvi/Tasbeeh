@@ -24,7 +24,6 @@
         android:key="counterlimit"
         android:title="@string/ps08"
         android:defaultValue="0"
-        android:widgetLayout="@anim/fragment_fast_out_extra_slow_in"
         android:summary="@string/txtCountLimit"/>
     <Preference
         android:key="feedback"

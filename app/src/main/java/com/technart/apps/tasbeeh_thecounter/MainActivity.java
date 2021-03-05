@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     private Runnable runnable;
     ImageButton btnlockClock;
     private Animation blinkanimation;
-    private int vibrateAmp = 50;
+    private int vibrateAmp = 5;
     private int soundAmp = 50;
 
     @Override
@@ -260,14 +260,14 @@ lockClock = false;
         super.onResume();
         Toast.makeText(this, getResources().getString(R.string.updated), Toast.LENGTH_SHORT).show();
         cLimit = String.valueOf(Integer.valueOf(sharedPreferences.getString("counterlimit", "0")));
-        vibrateAmp = sharedPreferences.getInt("vibrateamp", 50);
+        vibrateAmp = sharedPreferences.getInt("vibrateamp", 5);
         soundAmp = sharedPreferences.getInt("soundamp", 50);
         sound = sharedPreferences.getBoolean("sound", false);
         vibrate = sharedPreferences.getBoolean("vibrate", false);
         textToCount.setText(cLimit);
 
         Log.d("TAG", "onResume counterLimit: " + sharedPreferences.getString("counterlimit", "0"));
-        Log.d("TAG", "onResume vibrateAmp: " + sharedPreferences.getInt("vibrateamp", 50));
+        Log.d("TAG", "onResume vibrateAmp: " + sharedPreferences.getInt("vibrateamp", 5));
         Log.d("TAG", "onResume soundamp: " + sharedPreferences.getInt("soundamp", 50));
         Log.d("TAG", "onResume sounds: " + sharedPreferences.getBoolean("sound", false));
         Log.d("TAG", "onResume vibrate: " + sharedPreferences.getBoolean("vibrate", false));
