@@ -19,6 +19,7 @@
         android:key="vibrateamp"
         android:title="@string/ps05"
         android:defaultValue="5"
+        android:min="1"
         android:max="10"/>
     <EditTextPreference
         android:key="counterlimit"

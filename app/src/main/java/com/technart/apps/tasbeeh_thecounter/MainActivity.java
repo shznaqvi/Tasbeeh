@@ -3,6 +3,7 @@ package com.technart.apps.tasbeeh_thecounter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.AudioManager;
@@ -21,13 +22,29 @@ import android.view.View.OnClickListener;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.lifecycle.Observer;
 import androidx.preference.PreferenceManager;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
+
+import java.io.IOException;
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
@@ -69,6 +86,8 @@ lockClock = false;
 
 
         setContentView(R.layout.activity_home);
+
+
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
@@ -81,7 +100,6 @@ lockClock = false;
         //muteButton = findViewById(R.id.setMode);
 /*        scoreText = findViewById(R.id.txtCount);
         limitText = findViewById(R.id.countLimit);*/
-
 
         addButton.setOnClickListener(this);
 /*        resetButton.setOnClickListener(this);
@@ -110,8 +128,31 @@ lockClock = false;
         blinkanimation.setRepeatMode(Animation.REVERSE);
 
 
+        WorkRequest workRequest =
+                new OneTimeWorkRequest.Builder(WMWorker.class)
+                        .build();
+
+      /*  WorkManager.getInstance(getApplicationContext())
+                .enqueue(workRequest);*/
+
+        WorkManager.getInstance(getApplicationContext()).getWorkInfoByIdLiveData(workRequest.getId())
+                .observe(this, new Observer<WorkInfo>() {
+                    @Override
+                    public void onChanged(@Nullable WorkInfo workInfo) {
+                        if (workInfo != null) {
+
+                            workInfo.getState();
+                            Data progress = workInfo.getProgress();
+                            int value = progress.getInt("PROGRESS", 0);
+                            // Do something with progress
+                        }
+                    }
+                });
+
 
     }
+
+
 
 
     static final String SCORE_TEXT = "scoreText";
@@ -140,8 +181,10 @@ lockClock = false;
 
         if (v.getId() == R.id.reset) {
             prefEditor.putString("counterlimit", "0");
-            textToCount.setText("--");
+            cLimit = "0";
             counter = 0;
+            textToCount.setText("--");
+
             options.setVisibility(View.INVISIBLE);
             addButton.setTextColor(Color.GREEN);
             addButton.setText("+");
@@ -160,6 +203,7 @@ lockClock = false;
         }
 
         if (v == addButton) {
+            options.setVisibility(View.INVISIBLE);
 
             addButton.startAnimation(blinkanimation);
             counter++;
@@ -169,12 +213,14 @@ lockClock = false;
             if (!sound) {
                 toneG = new ToneGenerator(AudioManager.STREAM_ALARM, soundAmp);
                 toneG.startTone(ToneGenerator.TONE_CDMA_PRESSHOLDKEY_LITE, 20);
+                toneG.release();
+                toneG = null;
             }
             Log.d("TAG", "onClick: counter " + counter);
             Log.d("TAG", "onClick: cLimit " + cLimit);
             Log.d("TAG", "onClick: sound " + sound);
             Log.d("TAG", "onClick: vibrate " + vibrate);
-            if ((counter >= 0) && (counter == Integer.parseInt(cLimit))) {
+            if ((Integer.parseInt(cLimit) > 0) &&(counter > 0) && (counter >= Integer.parseInt(cLimit))) {
                 options.setVisibility(View.VISIBLE);
                 addButton.setTextColor(Color.RED);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -202,7 +248,9 @@ lockClock = false;
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
 
-        savedInstanceState.putInt(SCORE_TEXT, counter);
+        //savedInstanceState.putInt(SCORE_TEXT, counter);
+        prefEditor.putInt(SCORE_TEXT, counter);
+        prefEditor.apply();
 
         super.onSaveInstanceState(savedInstanceState);
     }
@@ -232,6 +280,7 @@ lockClock = false;
                     intent = new Intent(MainActivity.this, SettingsActivity.class);
                     startActivity(intent);
                     break;
+
                 case R.id.action_reset:
                     addButton.setText("+");
                     textToCount.setText("--");
@@ -259,7 +308,8 @@ lockClock = false;
     protected void onResume() {
         super.onResume();
         Toast.makeText(this, getResources().getString(R.string.updated), Toast.LENGTH_SHORT).show();
-        cLimit = String.valueOf(Integer.valueOf(sharedPreferences.getString("counterlimit", "0")));
+        cLimit = sharedPreferences.getString("counterlimit", "");
+        cLimit = cLimit.equals("")? "0" : cLimit;
         vibrateAmp = sharedPreferences.getInt("vibrateamp", 5);
         soundAmp = sharedPreferences.getInt("soundamp", 50);
         sound = sharedPreferences.getBoolean("sound", false);
@@ -308,8 +358,7 @@ lockClock = false;
         // Restore UI state from the savedInstanceState.
         // This bundle has also been passed to onCreate.
         counter = savedInstanceState.getInt(SCORE_TEXT);
-
-        String myString = savedInstanceState.getString("MyString");
+       // counter = sharedPreferences.getInt(SCORE_TEXT, 0);
     }
 
 }

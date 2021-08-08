@@ -9,6 +9,11 @@
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/background_screen">
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical">
@@ -29,7 +34,7 @@
     <TextView
         android:id="@+id/addButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="360dp"
         android:maxHeight="250dp"
         android:maxWidth="250dp"
         android:elevation="1dp"
@@ -41,7 +46,7 @@ android:layout_margin="24dp"
         android:shadowDy="5"
         android:radius="2dp"
         android:text="@string/addone"
-        android:textColor="#d600ff00"
+        android:textColor="#d600ef00"
         android:textSize="110sp" />
 
 
@@ -60,35 +65,66 @@ android:layout_margin="24dp"
             android:background="@drawable/ic_lock"
             android:layout_margin="24dp"
             android:onClick="onClick" />
+
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="top|center_horizontal"
-            android:id="@+id/options"
-            android:visibility="invisible"
-            android:orientation="horizontal">
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:padding="24dp"
-                android:id="@+id/refresh"
-                android:onClick="onClick"
-                android:background="@drawable/ic_refresh"
-                android:layout_height="wrap_content"/>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:padding="24dp"
-                android:visibility="invisible"
-                android:background="@drawable/ic_refresh"
-                android:layout_height="wrap_content"/>
-            <ImageButton
-                android:onClick="onClick"
-                android:id="@+id/reset"
-                android:layout_width="wrap_content"
-                android:padding="24dp"
-                android:background="@drawable/ic_reset"
-                android:layout_height="wrap_content"/>
+            android:orientation="vertical"
+           >
+
+            <LinearLayout
+                android:id="@+id/options"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="top|center_horizontal"
+                android:orientation="horizontal"
+                android:visibility="invisible">
+
+                <ImageButton
+                    android:id="@+id/refresh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_refresh"
+                    android:onClick="onClick"
+                    android:padding="24dp" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_refresh"
+                    android:padding="24dp"
+                    android:visibility="invisible" />
+
+                <ImageButton
+                    android:id="@+id/reset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_reset"
+                    android:onClick="onClick"
+                    android:padding="24dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top|center_horizontal"
+                android:orientation="vertical"
+                android:padding="12dp"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#7f7f7fef"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:text="Developed by Hassan Naqvi"/>
+            </LinearLayout>
         </LinearLayout>
+
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -97,5 +133,6 @@ android:layout_margin="24dp"
             android:visibility="invisible"
             android:background="@drawable/ic_lock"
             />
+    </LinearLayout>
     </LinearLayout>
 </LinearLayout>
