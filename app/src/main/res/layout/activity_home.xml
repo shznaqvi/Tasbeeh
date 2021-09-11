@@ -14,9 +14,59 @@
         android:background="@drawable/background_screen">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:padding="0dp"
         android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#7fd6d6ff"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:text="ELAPSED "
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1"
+                android:gravity="start"
+                android:padding="0dp"
+                android:fontFamily="monospace"/>
+            <TextView
+                android:id="@+id/timeElapsed"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:text="00:00"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1"
+                android:gravity="start"
+                android:padding="0dp"
+                android:fontFamily="monospace"/>
+            <TextView
+                android:id="@+id/timeRemaining"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:text="00:00"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1"
+                android:gravity="end"
+                android:padding="0dp"
+                android:fontFamily="monospace"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:text=" REMAINING"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1"
+                android:gravity="end"
+                android:padding="0dp"
+                android:fontFamily="monospace"/>
+        </LinearLayout>
         <TextView
             android:id="@+id/textToCount"
             android:layout_width="match_parent"
@@ -27,8 +77,10 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1"
             android:textColor="#7fd6d6ff"
             android:gravity="end"
-            android:padding="24dp"
+            android:padding="0dp"
+            android:layout_marginEnd="12dp"
             android:fontFamily="monospace"/>
+
     </LinearLayout>
 
     <TextView
@@ -105,6 +157,15 @@ android:layout_margin="24dp"
                     android:background="@drawable/ic_reset"
                     android:onClick="onClick"
                     android:padding="24dp" />
+
+         <!--       <ImageButton
+                    android:id="@+id/readLog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_reset"
+                    android:onClick="onClick"
+                    android:padding="24dp" />-->
+
             </LinearLayout>
 
             <LinearLayout

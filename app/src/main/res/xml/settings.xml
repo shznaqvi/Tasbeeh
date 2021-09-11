@@ -10,8 +10,8 @@
   <SeekBarPreference
         android:key="soundamp"
         android:title="@string/ps03"
-        android:defaultValue="50"
-        android:max="100"/>
+        android:defaultValue="25"
+        android:max="50"/>
     <SwitchPreference
         android:key="vibrate"
         android:title="@string/ps04"/>
