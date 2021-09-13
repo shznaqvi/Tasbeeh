@@ -40,6 +40,7 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     static final String SCORE_TEXT = "scoreText";
+    static final String START_TIME = "startTime";
     private static final String TAG = "MainActivity";
     private final int interval = 3500; // 1 Second
     private final Handler handler = new Handler();
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     private int vibrateAmp = 5;
     private int soundAmp = 25;
     private long startTime;
+    private long avgTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +76,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(this);
         prefEditor = sharedPreferences.edit();
-        String name = sharedPreferences.getString("signature", "");
         super.onCreate(savedInstanceState);
         lockClock = false;
         // mMode = false;
@@ -217,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         if (v == addButton) {
 
             if (counter == 0) startTime = System.currentTimeMillis();
-            if ((counter + 1) % 3 == 0) {
+            if ((counter + 1) % 3 == 0 && Integer.parseInt(cLimit) > 1) {
 
                 timeRemaining.setText(showTime(0));
                 timeElapsed.setText(showTime(1));
@@ -267,19 +268,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
             }
             //showTime();
+
+            prefEditor.putLong(START_TIME, startTime);
+            prefEditor.putInt(SCORE_TEXT, counter);
+            prefEditor.apply();
         }
 
 
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-
-        //savedInstanceState.putInt(SCORE_TEXT, counter);
-        prefEditor.putInt(SCORE_TEXT, counter);
-        prefEditor.apply();
-
-        super.onSaveInstanceState(savedInstanceState);
     }
 
 /*    public void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -336,12 +331,16 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         super.onResume();
         Toast.makeText(this, getResources().getString(R.string.updated), Toast.LENGTH_SHORT).show();
         cLimit = sharedPreferences.getString("counterlimit", "");
+        counter = sharedPreferences.getInt(SCORE_TEXT, 0);
+        startTime = sharedPreferences.getLong(START_TIME, 0);
+
         cLimit = cLimit.equals("") ? "0" : cLimit;
         vibrateAmp = sharedPreferences.getInt("vibrateamp", 5);
         soundAmp = sharedPreferences.getInt("soundamp", 50);
         sound = sharedPreferences.getBoolean("sound", false);
         vibrate = sharedPreferences.getBoolean("vibrate", false);
         textToCount.setText(cLimit);
+        addButton.setText(Integer.toString(counter));
 
         Log.d("TAG", "onResume counterLimit: " + sharedPreferences.getString("counterlimit", "0"));
         Log.d("TAG", "onResume vibrateAmp: " + sharedPreferences.getInt("vibrateamp", 5));
@@ -376,16 +375,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             scoreText.setTextColor(Color.GREEN);
         }*/
 
-    }
-
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        // Restore UI state from the savedInstanceState.
-        // This bundle has also been passed to onCreate.
-        counter = savedInstanceState.getInt(SCORE_TEXT);
-        // counter = sharedPreferences.getInt(SCORE_TEXT, 0);
     }
 
 
@@ -438,11 +427,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         int seconds = (int) (TimeUnit.MILLISECONDS.toSeconds(time) - (minutes + (hours * 60)) * 60);
 
         Log.d(TAG, "showTime: " + txtTime + " - " + String.format("%02d", hours) + ":" + String.format("%02d", minutes));
-
+        if ((hours * 60) + minutes < 24 * 60 ) {
         if (hours + minutes < 1) {
             return String.format(" %02d seconds", seconds);
         } else {
             return String.format("%02d", hours) + ":" + String.format("%02d", minutes);
+        }
+            } else {
+            return "";
         }
     }
 
