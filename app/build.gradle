@@ -9,6 +9,7 @@ android {
         targetSdkVersion 30
         versionCode 12
         versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -20,6 +21,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildToolsVersion '30.0.3'
 }
 
 dependencies {
@@ -28,11 +30,18 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
 
     def preference_version = "1.1.1"
+    def work_version = "2.6.0"
+    def pdversion = "4.9.1"
 
     // Java language implementation
     implementation "androidx.preference:preference:$preference_version"
 
 
 
+
+    implementation "com.github.permissions-dispatcher:permissionsdispatcher:${pdversion}"
+    annotationProcessor "com.github.permissions-dispatcher:permissionsdispatcher-processor:${pdversion}"
+
+    implementation 'com.android.support:multidex:1.0.3'
 
 }
